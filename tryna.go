@@ -6,11 +6,11 @@ func main() {
 
 	rollstr := [6]string{}
 
-	for k := 0; k < 6; k++ {
+	for k := 0; k < len(rollstr); k++ {
 		rollstr[k] += rolldice()
 		//fmt.Println(rolldice())
 	}
-	for i := 0; i < 6; i++ {
+	for i := 0; i < len(rollstr); i++ {
 		fmt.Println(rollstr[i])
 	}
 }
