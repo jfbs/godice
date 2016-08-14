@@ -3,28 +3,25 @@ package main
 import ("fmt"; "math/rand"; "time"; "strconv";)
 
 func main() {
+	for k := 0; k < 6; k++ {
 
-	fmt.Println(rolldice())
-	
+		fmt.Println(rolldice())
+	}
 }
 
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-func rolldice() string{
+func rolldice() string {
 	rand.Seed(time.Now().UTC().UnixNano())
-	var fivex string = ""
-	rollStr := [1]string{}
+	var fivedice string = ""
 
 	for j := 0; j < 5; j++ {
-		fivex += strconv.Itoa(randInt(1,7))
-		
+		fivedice += strconv.Itoa(randInt(1,7))		
 	}
-	// fmt.Println(fivex)
-	rollStr[0] = fivex
-	//fmt.Println(rollStr[0])
-	return rollStr[0]
+
+	return fivedice
 
 }
 
