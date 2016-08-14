@@ -1,0 +1,65 @@
+package main
+
+// import ("bufio" "fmt" "os" "io/ioutil" "io")
+
+import ( "fmt"; "time"; "math/rand"; )
+/*  func random(min, max int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(max - min) + min
+} */
+/* func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+} */
+
+func main() {
+
+	/* myrand := random(1, 6)
+	fmt.Println(myrand) */ 
+
+
+	//fmt.Print(rand.Intn)
+/*	presAge := make(map[string] int)
+
+	presAge["TheoRoosevelt"] = 42
+
+	fmt.Println(presAge["TheoRoosevelt"]) */
+	// stream, err := ioutil.ReadFile("diceware.txt")
+	// dat, err := ioutil.ReadFile("diceware.txt"
+	//check(err)
+
+	//rand.Seed(time.Now().UnixNano())
+	//fmt.Println(rand.Intn(0,7))
+	//readString := string(stream)
+
+---
+
+
+package main
+
+//import ( "fmt"; "encoding/binary"; "crypto/rand" )
+import ( "fmt"; "math/rand"; "time";)
+
+func main() {
+
+	/* var n uint8
+	binary.Read(rand.Reader, binary.LittleEndian, &n)
+	fmt.Println(n) */
+	rand.Seed(time.Now().UTC().UnixNano())
+	fmt.Println(randomString(10))
+}
+
+func randomString(l int) string {	
+	bytes := make([]byte, l)
+	for i := 0; i < l; i++ {
+		bytes[i] = byte(randInt(65, 90))
+	}
+	return string(bytes)
+}
+
+func randInt(min int, max int) int {
+	return min + rand.Intn(max-min)
+
+---
+
