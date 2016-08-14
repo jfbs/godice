@@ -3,16 +3,7 @@ package main
 import ("fmt"; "math/rand"; "time"; "strconv";)
 
 func main() {
-
-	rollstr := [6]string{}
-
-	for k := 0; k < len(rollstr); k++ {
-		rollstr[k] += rolldice()
-		//fmt.Println(rolldice())
-	}
-	for i := 0; i < len(rollstr); i++ {
-		fmt.Println(rollstr[i])
-	}
+	getsix() 
 }
 
 func randInt(min int, max int) int {
@@ -28,10 +19,13 @@ func rolldice() string {
 	}
 
 	return fivedice
-
 }
 
+func getsix() {
+	rollstr := [6]string{}
 
-/* for i, value := range favNums {
-
-} */
+	for k := 0; k < len(rollstr); k++ {
+		rollstr[k] += rolldice()
+		fmt.Println("roll ",k+1, ": ", rolldice())
+	}
+}
