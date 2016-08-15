@@ -3,7 +3,12 @@ package main
 import ("fmt"; "math/rand"; "time"; "strconv";)
 
 func main() {
-	getsix() 
+	sixrolls := []string{} 
+
+	sixrolls =  getsix()
+	for v := range sixrolls {
+		fmt.Println(sixrolls[v])
+	}
 }
 
 func randInt(min int, max int) int {
@@ -21,11 +26,12 @@ func rolldice() string {
 	return fivedice
 }
 
-func getsix() {
-	rollstr := [6]string{}
+func getsix() []string {
+	rollstr := []string{}
 
-	for k := 0; k < len(rollstr); k++ {
-		rollstr[k] += rolldice()
-		fmt.Println("roll ",k+1, ": ", rolldice())
+	for k := 0; k < 6; k++ { // roll dice six times
+		rollstr = append(rollstr, rolldice())
 	}
+
+	return rollstr
 }
