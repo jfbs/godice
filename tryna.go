@@ -1,14 +1,37 @@
 package main
 
-import ("fmt"; "math/rand"; "time"; "strconv";)
+import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
 func main() {
-	sixrolls := []string{} 
+	sixrolls := []string{}
 
 	sixrolls =  getsix()
 	for v := range sixrolls {
+		// match dice with words
 		fmt.Println(sixrolls[v])
 	}
+
+	file, err := os.Open("diceware.txt")
+	if err != nil {
+		checkError(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	scanner.Split(bufio.ScanLines)
+
+	for scanner.Scan() {
+		if strings.Contains(scanner.Text(), "11123") {
+			fmt.Println(scanner.Text())
+		}
+	}
+
+	fmt.Println()
+
+	if err := scanner.Err(); err != nil {
+		checkError(err)
+	}
+
 }
 
 func randInt(min int, max int) int {
@@ -17,10 +40,10 @@ func randInt(min int, max int) int {
 
 func rolldice() string {
 	rand.Seed(time.Now().UTC().UnixNano())
-	var fivedice string = ""
+	var fivedice string
 
 	for j := 0; j < 5; j++ { // build five six-sided dice roll
-		fivedice += strconv.Itoa(randInt(1,7))		
+		fivedice += strconv.Itoa(randInt(1,7))
 	}
 
 	return fivedice
@@ -34,4 +57,11 @@ func getsix() []string {
 	}
 
 	return rollstr
+}
+
+func checkError(err error) {
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(0)
+	}
 }
