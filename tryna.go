@@ -4,12 +4,10 @@ import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
 func main() {
 	sixrolls := []string{}
-
 	sixrolls =  getsix()
-	for v := range sixrolls {
-		// match dice with words
-		fmt.Println(sixrolls[v])
-	}
+	/* for v:= range sixrolls {
+		fmt.Println(sixrolls[v])  // print each hand
+	} */
 
 	file, err := os.Open("diceware.txt")
 	if err != nil {
@@ -19,14 +17,19 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
+	// delimiter := '\t'
+	// vartemp := scanner.Text()
+	// rightofdel := vartemp.Join(strings.Split(vartemp, delimiter)[1:], delimiter)
 
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), "11123") {
-			fmt.Println(scanner.Text())
+		for d:= range sixrolls {
+			if strings.Contains(scanner.Text(), sixrolls[d]) {
+				fmt.Println(scanner.Text())
+			}
 		}
 	}
 
-	fmt.Println()
+	fmt.Println("first is: ", sixrolls[0] )
 
 	if err := scanner.Err(); err != nil {
 		checkError(err)
@@ -35,7 +38,7 @@ func main() {
 }
 
 func randInt(min int, max int) int {
-	return min + rand.Intn(max-min)
+	return min + rand.Intn(max - min)
 }
 
 func rolldice() string {
