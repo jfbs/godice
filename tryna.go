@@ -4,7 +4,7 @@ import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
 func main() {
 	sixrolls := []string{}
-	sixrolls =  getsix()
+	sixrolls =  getsixhands()
 
 	file, err := os.Open("diceware.txt")
 	if err != nil {
@@ -48,7 +48,7 @@ func rolldice() string {
 	return fivedice
 }
 
-func getsix() []string {
+func getsixhands() []string {
 	rollstr := []string{}
 
 	for k := 0; k < 6; k++ { // roll five dice six times
