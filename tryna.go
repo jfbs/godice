@@ -22,19 +22,19 @@ func main() {
 	// rightofdel := vartemp.Join(strings.Split(vartemp, delimiter)[1:], delimiter)
 
 	for scanner.Scan() {
-		for d:= range sixrolls {
+		for d := range sixrolls {
 			if strings.Contains(scanner.Text(), sixrolls[d]) {
-				fmt.Println(scanner.Text())
+				// varg = sixrolls[d]
+				fmt.Printf("Roll %d is: %v\n", d, scanner.Text())
 			}
 		}
 	}
 
-	fmt.Println("first is: ", sixrolls[0] )
+	fmt.Println("first is: ", sixrolls[0]) // check first roll
 
 	if err := scanner.Err(); err != nil {
 		checkError(err)
 	}
-
 }
 
 func randInt(min int, max int) int {
@@ -55,7 +55,7 @@ func rolldice() string {
 func getsix() []string {
 	rollstr := []string{}
 
-	for k := 0; k < 6; k++ { // roll dice six times
+	for k := 0; k < 6; k++ { // roll five dice six times
 		rollstr = append(rollstr, rolldice())
 	}
 
