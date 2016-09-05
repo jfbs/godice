@@ -17,7 +17,7 @@ func main() {
 
 	varg := make([]string, 6) // store matches into slice
 	for scanner.Scan() {
-		for d := 0; d < 6; d++ {
+		for d := range sixrolls {
 			if strings.Contains(scanner.Text(), sixrolls[d]) {
 				varg[d] = scanner.Text()
 			}
