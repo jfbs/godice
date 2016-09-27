@@ -5,8 +5,8 @@ import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 const number_of_phrases int = 8 // change for desired phrase count
 
 func main() {
-	phrases := []string{}
-	phrases =  getrolls()
+	rolled_hand := []string{}
+	rolled_hand =  getrolls()
 
 	file, err := os.Open("diceware.txt")
 	if err != nil {
@@ -19,16 +19,21 @@ func main() {
 
 	phrase_id := make([]string, number_of_phrases) // store matches into slice
 	for scanner.Scan() {
-		for d := range phrases {
-			if strings.Contains(scanner.Text(), phrases[d]) {
+		for d := range rolled_hand {
+			if strings.Contains(scanner.Text(), rolled_hand[d]) {
 				phrase_id[d] = scanner.Text() // match
 			}
 		}
 	}
 
+	fmt.Printf("Passphrase: ")
   for e := range phrase_id {
-		fmt.Printf("Roll %d is: %v\n", e+1, phrase_id[e])
+		input := string(phrase_id[e])
+		trimmed := strings.Replace(input, "\t"," ",-1)
+		parts := strings.Split(trimmed, " ")
+		fmt.Printf(parts[1] + " ")
 	}
+	fmt.Printf("\n")
 
 	if err := scanner.Err(); err != nil {
 		checkError(err)
