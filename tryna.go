@@ -36,11 +36,11 @@ func main() {
 }
 
 func randInt(min int, max int) int {
+	rand.Seed(time.Now().UTC().UnixNano())
 	return min + rand.Intn(max - min)
 }
 
 func rolldice() string {
-	rand.Seed(time.Now().UTC().UnixNano())
 	var fivedice string
 
 	for j := 0; j < 5; j++ { // roll a six-sided die five times
