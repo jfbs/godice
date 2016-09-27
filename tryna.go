@@ -2,9 +2,11 @@ package main
 
 import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
+const phrasenum int = 8 // change for desired phrase count
+
 func main() {
-	sixrolls := []string{}
-	sixrolls =  getsixhands()
+	xphrase := []string{}
+	xphrase =  getrolls()
 
 	file, err := os.Open("diceware.txt")
 	if err != nil {
@@ -15,10 +17,10 @@ func main() {
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
-	varg := make([]string, 6) // store matches into slice
+	varg := make([]string, phrasenum) // store matches into slice
 	for scanner.Scan() {
-		for d := range sixrolls {
-			if strings.Contains(scanner.Text(), sixrolls[d]) {
+		for d := range xphrase {
+			if strings.Contains(scanner.Text(), xphrase[d]) {
 				varg[d] = scanner.Text()
 			}
 		}
@@ -41,17 +43,17 @@ func rolldice() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	var fivedice string
 
-	for j := 0; j < 5; j++ { // build five six-sided dice roll
+	for j := 0; j < 5; j++ { // roll a six-sided die five times
 		fivedice += strconv.Itoa(randInt(1,7))
 	}
 
 	return fivedice
 }
 
-func getsixhands() []string {
+func getrolls() []string {
 	rollstr := []string{}
 
-	for k := 0; k < 6; k++ { // roll five dice six times
+	for k := 0; k < phrasenum; k++ { // roll five dice for each phrase
 		rollstr = append(rollstr, rolldice())
 	}
 
