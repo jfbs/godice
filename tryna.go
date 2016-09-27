@@ -2,11 +2,11 @@ package main
 
 import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
-const phrasenum int = 8 // change for desired phrase count
+const number_of_phrases int = 8 // change for desired phrase count
 
 func main() {
-	xphrase := []string{}
-	xphrase =  getrolls()
+	phrases := []string{}
+	phrases =  getrolls()
 
 	file, err := os.Open("diceware.txt")
 	if err != nil {
@@ -17,17 +17,17 @@ func main() {
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
-	varg := make([]string, phrasenum) // store matches into slice
+	phrase_id := make([]string, number_of_phrases) // store matches into slice
 	for scanner.Scan() {
-		for d := range xphrase {
-			if strings.Contains(scanner.Text(), xphrase[d]) {
-				varg[d] = scanner.Text()
+		for d := range phrases {
+			if strings.Contains(scanner.Text(), phrases[d]) {
+				phrase_id[d] = scanner.Text() // match
 			}
 		}
 	}
 
-  for e := range varg {
-		fmt.Printf("Roll %d is: %v\n", e+1, varg[e])
+  for e := range phrase_id {
+		fmt.Printf("Roll %d is: %v\n", e+1, phrase_id[e])
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -53,7 +53,7 @@ func rolldice() string {
 func getrolls() []string {
 	rollstr := []string{}
 
-	for k := 0; k < phrasenum; k++ { // roll five dice for each phrase
+	for k := 0; k < number_of_phrases; k++ { // roll five dice for each phrase
 		rollstr = append(rollstr, rolldice())
 	}
 
