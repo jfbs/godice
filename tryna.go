@@ -26,14 +26,18 @@ func main() {
     }
   }
 
-  fmt.Printf("Passphrase: ")
+  var whole_phrase string
+  // fmt.Printf("Passphrase: ")
   for e := range phrase_id {
     input := string(phrase_id[e])
     trimmed := strings.Replace(input, "\t"," ",-1)
     parts := strings.Split(trimmed, " ")
-    fmt.Printf(parts[1] + " ")
+    // fmt.Printf(parts[1] + " ")
+    whole_phrase += parts[1] + " "
   }
-  fmt.Printf("\n")
+  //fmt.Printf("\n")
+  trim_phrase := strings.Trim(whole_phrase, " ")
+  fmt.Println("Passphrase: " + trim_phrase)
 
   if err := scanner.Err(); err != nil {
     checkError(err)
