@@ -5,6 +5,7 @@ import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 const number_of_phrases int = 8 // change for desired phrase count
 
 func main() {
+  start := time.Now()
   rolled_hand := []string{}
   rolled_hand =  getrolls()
 
@@ -40,6 +41,9 @@ func main() {
   if err := scanner.Err(); err != nil {
     checkError(err)
   }
+
+  elapsed := time.Since(start)
+  fmt.Println("Runtime: ", elapsed)
 }
 
 func randInt(min int, max int) int {
