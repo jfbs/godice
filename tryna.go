@@ -2,23 +2,22 @@ package main
 
 import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
-const number_of_phrases int = 12 // change for desired phrase count
+const phrase_max int = 12 // change for desired phrase count
 
 func main() {
   rolled_hand := []string{}
   rolled_hand =  getrolls()
 
   file, err := os.Open("diceware.txt")
-  if err != nil {
-    checkError(err)
-  }
+  checkError(err)
   defer file.Close()
 
   scanner := bufio.NewScanner(file)
   scanner.Split(bufio.ScanLines)
 
-  phrase_id := make([]string, number_of_phrases) // store matches into slice
+  phrase_id := make([]string, phrase_max) // store matches into slice
   for scanner.Scan() {
+    checkError(err)
     for d := range rolled_hand {
       if strings.Contains(scanner.Text(), rolled_hand[d]) {
         phrase_id[d] = scanner.Text() // match
@@ -26,20 +25,17 @@ func main() {
     }
   }
 
+  // Split dice from match and parse passphrases into a string
   var whole_phrase string
   for e := range phrase_id {
-    input := string(phrase_id[e])
-    trimmed := strings.Replace(input, "\t"," ",-1)
+    match := string(phrase_id[e])
+    trimmed := strings.Replace(match, "\t"," ",-1)
     parts := strings.Split(trimmed, " ")
     whole_phrase += parts[1] + " "
   }
 
   trim_phrase := strings.Trim(whole_phrase, " ")
   fmt.Println("Passphrase: ", trim_phrase)
-
-  if err := scanner.Err(); err != nil {
-    checkError(err)
-  }
 }
 
 func randInt(min int, max int) int {
@@ -47,20 +43,22 @@ func randInt(min int, max int) int {
   return min + rand.Intn(max - min)
 }
 
+// Return random values from 1 through 6 five times.
 func rolldice() string {
   var fivedice string
 
-  for j := 0; j < 5; j++ { // roll a six-sided die five times
+  for j := 0; j < 5; j++ {
     fivedice += strconv.Itoa(randInt(1,7))
   }
 
   return fivedice
 }
 
+// Return five dice for each phrase
 func getrolls() []string {
   rollstr := []string{}
 
-  for k := 0; k < number_of_phrases; k++ { // roll five dice for each phrase
+  for k := 0; k < phrase_max; k++ {
     rollstr = append(rollstr, rolldice())
   }
 
