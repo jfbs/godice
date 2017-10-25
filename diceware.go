@@ -16,8 +16,9 @@ func main() {
   scanner.Split(bufio.ScanLines)
 
   phrase_id := make([]string, phrase_max) // store matches into slice
+  errscan := scanner.Err()
   for scanner.Scan() {
-    checkError(err)
+    checkError(errscan)
     for d := range rolled_hand {
       if strings.Contains(scanner.Text(), rolled_hand[d]) {
         phrase_id[d] = scanner.Text() // match
