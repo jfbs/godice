@@ -2,7 +2,7 @@ package main
 
 import ("fmt"; "math/rand"; "time"; "strconv"; "os"; "bufio"; "strings";)
 
-const number_of_phrases int = 8 // change for desired phrase count
+const number_of_phrases int = 12 // change for desired phrase count
 
 func main() {
   start := time.Now()
